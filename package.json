@@ -1,0 +1,27 @@
+{
+  "name": "untis-school-closure-api",
+  "version": "1.0.0",
+  "description": "This API returns the end of school for a specific class. This feature can be e.g. used for the ios shortcuts app.",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KonstntinM/untis-school-closure-api.git"
+  },
+  "keywords": [
+    "untis",
+    "school",
+    "closure",
+    "api",
+    "ios",
+    "shortcuts"
+  ],
+  "author": "KonstntinM",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/KonstntinM/untis-school-closure-api/issues"
+  },
+  "homepage": "https://github.com/KonstntinM/untis-school-closure-api#readme"
+}
