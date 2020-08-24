@@ -3,18 +3,15 @@ var app = express();
 
 const config = require("config-yaml")(`${__dirname}/config/config.yaml`)
 
-const untis = require("untis-node")
+const WebUntis = require("webuntis")
 
-const untisConfig = {
-  username: config.Untis[2].USERNAME,
-  password: config.Untis[3].PASSWORD,
-  school: config.Untis[1].SCHOOL,
-  server: config.Untis[0].SERVER
-}
-
-untis.login(untisConfig)
+const untis = new WebUntis.WebUntisAnonymousAuth(
+  config.Untis[1].SCHOOL,
+  config.Untis[0].SERVER
+)
+  .login()
     .then(res => {
-        console.info("\x1b[32m" + "The server successfully opened a connection to the Untis server." + "\x1b[0m")
+      console.info("\x1b[32m" + "The server successfully opened a connection to the Untis server." + "\x1b[0m")
     })
     .catch(err => {
         console.error("Oops! There was an error when connecting to the Untis server. Please check your internet connection and login data.")
@@ -32,7 +29,7 @@ app.get("/:classId", function (req, res, next) {
     type: 1
   }
 
-  untis.getSimpleTimetable(reqParams)
+  untis.getSimpleTimetable(req.params.classId, 1)
     .then(res => {
       console.log(res)
 
