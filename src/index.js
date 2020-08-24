@@ -30,22 +30,20 @@ app.get("/classes", function (req, res, next) {
     })
 })
 
-app.get("/:classId", function (req, res, next) {
+app.get("/schoolEnd/:classId", async function (req, res, next) {
 
-  const reqParams = {
-    id: req.params.classId,
-    type: 1
+  var timetable = await untis.getTimetableForToday(req.params.classId, WebUntis.WebUntisAnonymousAuth.TYPES.CLASS)
+  
+  // get last hour
+  let lastHour;
+  for (hour in timetable) {
+    if (lastHour == null || timetable[hour].endTime > lastHour.endTime) {
+      lastHour = timetable[hour]
+    }
   }
 
-  untis.getSimpleTimetable(req.params.classId, 1)
-    .then(res => {
-      console.log(res)
-
-    })
-    .catch(err => { 
-      console.error(err);
-    })
-
+  res.json(lastHour.endTime)
+  
 })
 
 const port = config.Server[0].PORT || 8000
