@@ -9,18 +9,26 @@ const untis = new WebUntis.WebUntisAnonymousAuth(
   config.Untis[1].SCHOOL,
   config.Untis[0].SERVER
 )
-  .login()
-    .then(res => {
-      console.info("\x1b[32m" + "The server successfully opened a connection to the Untis server." + "\x1b[0m")
-    })
-    .catch(err => {
-        console.error("Oops! There was an error when connecting to the Untis server. Please check your internet connection and login data.")
-        console.error(err)
-    })
+
+untis.login()
+  .then(res => {
+    console.info("\x1b[32m" + "The server successfully opened a connection to the Untis server." + "\x1b[0m")
+  })
+  .catch(err => {
+      console.error("Oops! There was an error when connecting to the Untis server. Please check your internet connection and login data.")
+      console.error(err)
+  })
 
 app.get("/", function(req, res) {
   res.json("Hello World from Express!");
 });
+
+app.get("/classes", function (req, res, next) {
+  untis.getClasses()
+    .then(result => {
+      res.json(result)
+    })
+})
 
 app.get("/:classId", function (req, res, next) {
 

@@ -2,5 +2,5 @@ Server:
   - PORT: 8080
 
 Untis:
-  - SERVER:
-  - SCHOOL:
+  - SERVER: "mese.webuntis.com"
+  - SCHOOL: "Leibniz-schule-berlin"
