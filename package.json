@@ -29,6 +29,6 @@
     "config-yaml": "^1.1.6",
     "express": "^4.17.1",
     "nodemon": "^2.0.4",
-    "untis-api": "^0.1.3"
+    "untis-node": "^1.0.4"
   }
 }
