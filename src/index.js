@@ -34,6 +34,19 @@ app.get("/schoolEnd/:classId", async function (req, res, next) {
 
   var timetable = await untis.getTimetableForToday(req.params.classId, WebUntis.WebUntisAnonymousAuth.TYPES.CLASS)
   
+  /*const ignoredSubjects = [
+    "wLa"
+  ]
+
+  // strike ignored lessons
+  for (hour in timetable) {
+    for (subject in ignoredSubjects) {
+      if (timetable[hour].su.name == ignoredSubjects[subject]) {
+        timetable.sort
+      }
+    }
+  }*/
+  
   // get last hour
   let lastHour;
   for (hour in timetable) {
