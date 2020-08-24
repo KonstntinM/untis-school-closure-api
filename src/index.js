@@ -5,7 +5,14 @@ const config = require("config-yaml")(`${__dirname}/config/config.yaml`)
 
 const untis = require("untis-node")
 
-untis.login(config.Untis[2].USERNAME, config.Untis[3].PASSWORD, config.Untis[1].SCHOOL, config.Untis[0].SERVER)
+const untisConfig = {
+  username: config.Untis[2].USERNAME,
+  password: config.Untis[3].PASSWORD,
+  school: config.Untis[1].SCHOOL,
+  server: config.Untis[0].SERVER
+}
+
+untis.login(untisConfig)
     .then(res => {
         console.info("\x1b[32m" + "The server successfully opened a connection to the Untis server." + "\x1b[0m")
     })
@@ -19,6 +26,20 @@ app.get("/", function(req, res) {
 });
 
 app.get("/:classId", function (req, res, next) {
+
+  const reqParams = {
+    id: req.params.classId,
+    type: 1
+  }
+
+  untis.getSimpleTimetable(reqParams)
+    .then(res => {
+      console.log(res)
+
+    })
+    .catch(err => { 
+      console.error(err);
+    })
 
 })
 
