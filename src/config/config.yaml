@@ -1,2 +1,8 @@
 Server:
   - PORT: 8080
+
+Untis:
+  - SERVER:
+  - SCHOOL:
+  - USERNAME:
+  - PASSWORD:
