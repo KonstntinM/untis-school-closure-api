@@ -1,7 +1,7 @@
 const express = require("express");
 var app = express();
 
-const config = require('yaml').parse(require('fs').readFileSync(__dirname + '/config/config.yaml', 'utf8'))
+const config = require("config-yaml")(`${__dirname}/config/config.yaml`)
 
 const untis = require("untis-api")
 
