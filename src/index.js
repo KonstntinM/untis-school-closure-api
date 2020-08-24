@@ -55,7 +55,12 @@ app.get("/schoolEnd/:classId", async function (req, res, next) {
     }
   }
 
-  res.json(lastHour.endTime)
+  let schoolEnd = lastHour.endTime.toString()
+
+  let position = schoolEnd > 1000 ? 2 : 1;
+  schoolEnd = [schoolEnd.slice(0, position), ":", schoolEnd.slice(position)].join('');
+
+  res.send(schoolEnd)
   
 })
 
