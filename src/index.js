@@ -28,11 +28,30 @@ app.get("/classes", function (req, res, next) {
     .then(result => {
       res.json(result)
     })
+    .catch(error=> {
+      const errorClasses = {
+        "error": {
+          "message": "Oops! There was an error when retrieving the classes."
+        }
+      }
+      res.status(500).json(errorClasses)
+    })
 })
 
 app.get("/schoolEnd/:classId", async function (req, res, next) {
 
   var timetable = await untis.getTimetableForToday(req.params.classId, WebUntis.WebUntisAnonymousAuth.TYPES.CLASS)
+  
+  if (!timetable) {
+
+    const errorTimetable = {
+        "error": {
+          "message": "Oops! There was an error when retrieving your timetable."
+        }
+    }
+
+    return res.status(404).json(errorTimetable)
+  }
   
   /*const ignoredSubjects = [
     "wLa"
