@@ -55,7 +55,7 @@ Response will contain the end time of the last lesson of the class. It will be s
 ```
 #### Error Response
 **Condition** : If class id is invalid, the class hasn't school today or there was an other error.  
-**Code** : `400 BAD REQUEST`  
+**Code** : `404 NOT FOUND`  
 **Content example** :
 ```json
 {
