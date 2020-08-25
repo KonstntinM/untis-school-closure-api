@@ -1,6 +1,7 @@
 # untis-school-closure-api
+![untis-school-closure-api](https://github.com/KonstntinM/untis-school-closure-api/blob/master/docs/images/do-not-disturb-untis-api.png)
 This API returns the end of school for a specific class. This feature can be e.g. used for the ios shortcuts app.
-_This README will be extended._
+
 ## Getting Started for developement
 First thing you need to do is install dependencies:
 ```
@@ -26,8 +27,8 @@ Untis:
 ## Usage
 This API is designed to use IOS-shortcuts to automatically mute a student's iPhone for the duration of the lesson. There are certainly many other ways to use the API.
 
-Here is a suggestion of what a routine might look like that mutes the student's phone.
-<img align="right" src="https://ibb.co/3h4JHYC">
+Here is a suggestion of what a routine might look like that mutes the student's phone.  
+<img align="right" src="https://github.com/KonstntinM/untis-school-closure-api/blob/master/docs/images/untis-shortcut.PNG" width="30%">
 _Routine is performed every day of the week five minutes before school starts._
   1. Retrieve content from `YOUR URL`
   2. Set variable "School end" to _contents of the URL_
