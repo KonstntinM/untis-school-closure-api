@@ -3,21 +3,15 @@ var app = express();
 
 const config = require("config-yaml")(`${__dirname}/config/config.yaml`)
 
-const WebUntis = require("webuntis")
+const WebUntis = require("webuntis");
+const WebuntisService = require("./services/WebuntisService");
 
 const untis = new WebUntis.WebUntisAnonymousAuth(
   config.Untis[1].SCHOOL,
   config.Untis[0].SERVER
 )
 
-untis.login()
-  .then(res => {
-    console.info("\x1b[32m" + "The server successfully opened a connection to the Untis server." + "\x1b[0m")
-  })
-  .catch(err => {
-      console.error("Oops! There was an error when connecting to the Untis server. Please check your internet connection and login data.")
-      console.error(err)
-  })
+WebuntisService.login()
 
 app.get("/", function(req, res) {
   res.json("Hello World from Express!");
