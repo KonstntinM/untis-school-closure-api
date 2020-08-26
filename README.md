@@ -15,6 +15,7 @@ $ npm start
 Open the _./src/config/config.yaml file and change the values for Untis to fit your school.
 > First you have to get your school name and your server. You can find your school name and your server by going to webuntis.com and then searching for your school. After being redirected to your school web page you can see your school id and your server by looking at the link: Example link: https://mese.webuntis.com/WebUntis/?school=htbla_kaindorf#/basic/main the server is the word before ".webuntis.com", so in this example: mese the school is the word after "?school=".
 > - "untis-node" [documentation](https://thecrether.github.io/untis-node/index.html#Documentation)
+
 **config.yaml example**
 ```
 Server:
