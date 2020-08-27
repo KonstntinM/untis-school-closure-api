@@ -15,7 +15,7 @@ const untis = new WebUntis.WebUntisAnonymousAuth(
 )
 
 async function login() {
-    untis.login()
+    await untis.login()
         .then(res => {
             console.info("\x1b[32m" + "The server successfully opened a connection to the Untis server." + "\x1b[0m")
         })
@@ -23,8 +23,6 @@ async function login() {
             console.error("Oops! There was an error when connecting to the Untis server. Please check your internet connection and login data.")
             console.error(err)
         })
-
-        
 }
 
 async function isLoggedIn () {
