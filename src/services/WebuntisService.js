@@ -15,7 +15,6 @@ const untis = new WebUntis.WebUntisAnonymousAuth(
 )
 
 function login() {
-    untis.logout()
     untis.login()
         .then(res => {
             console.info("\x1b[32m" + "The server successfully opened a connection to the Untis server." + "\x1b[0m")
@@ -33,7 +32,7 @@ async function isLoggedIn () {
 async function getSchoolEnd(classId) {
 
     login()
-    
+
     return new Promise (async (resolve, reject) => {
         var timetable = await untis.getTimetableForToday(classId, WebUntis.WebUntisAnonymousAuth.TYPES.CLASS)
         .catch(error => {
