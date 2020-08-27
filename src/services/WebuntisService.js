@@ -9,12 +9,14 @@ module.exports = {
     getClasses
 }
 
-const untis = new WebUntis.WebUntisAnonymousAuth(
-    config.Untis[1].SCHOOL,
-    config.Untis[0].SERVER
-)
+var untis;
 
 function login() {
+    untis = new WebUntis.WebUntisAnonymousAuth(
+        config.Untis[1].SCHOOL,
+        config.Untis[0].SERVER
+    )
+
     untis.login()
         .then(res => {
             console.info("\x1b[32m" + "The server successfully opened a connection to the Untis server." + "\x1b[0m")
