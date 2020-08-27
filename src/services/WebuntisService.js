@@ -14,8 +14,9 @@ const untis = new WebUntis.WebUntisAnonymousAuth(
     config.Untis[0].SERVER
 )
 
-async function login() {
-    await untis.login()
+function login() {
+    untis.logout()
+    untis.login()
         .then(res => {
             console.info("\x1b[32m" + "The server successfully opened a connection to the Untis server." + "\x1b[0m")
         })
