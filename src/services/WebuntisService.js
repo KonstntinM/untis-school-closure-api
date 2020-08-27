@@ -1,10 +1,17 @@
 const WebUntis = require("webuntis");
 
+const config = require("config-yaml")(`${__dirname}/../config/config.yaml`)
+
 module.exports = {
     login,
     isLoggedIn,
-    getTimeTableByClass
+    
 }
+
+const untis = new WebUntis.WebUntisAnonymousAuth(
+    config.Untis[1].SCHOOL,
+    config.Untis[0].SERVER
+)
 
 async function login() {
     untis.login()
@@ -15,4 +22,10 @@ async function login() {
             console.error("Oops! There was an error when connecting to the Untis server. Please check your internet connection and login data.")
             console.error(err)
         })
+
+        
+}
+
+async function isLoggedIn () {
+    return await untis.validateSession();
 }

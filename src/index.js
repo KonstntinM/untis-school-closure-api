@@ -6,11 +6,6 @@ const config = require("config-yaml")(`${__dirname}/config/config.yaml`)
 const WebUntis = require("webuntis");
 const WebuntisService = require("./services/WebuntisService");
 
-const untis = new WebUntis.WebUntisAnonymousAuth(
-  config.Untis[1].SCHOOL,
-  config.Untis[0].SERVER
-)
-
 WebuntisService.login()
 
 app.get("/", function(req, res) {
@@ -41,7 +36,7 @@ app.get("/schoolEnd/:classId", async function (req, res, next) {
           "message": "Oops! There was an error when retrieving your timetable."
         }
       }
-                  
+
       return res.status(404).json(errorTimetable)
     })
   
@@ -72,6 +67,8 @@ app.get("/schoolEnd/:classId", async function (req, res, next) {
   schoolEnd = [schoolEnd.slice(0, position), ":", schoolEnd.slice(position)].join('');
 
   res.send(schoolEnd)
+
+  
   
 })
 
