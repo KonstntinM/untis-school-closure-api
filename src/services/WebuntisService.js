@@ -29,3 +29,38 @@ async function login() {
 async function isLoggedIn () {
     return await untis.validateSession();
 }
+
+async function getSchoolEnd() {
+
+    if (!isLoggedIn()) {
+        await login()
+    }
+
+    var timetable = await untis.getTimetableForToday(req.params.classId, WebUntis.WebUntisAnonymousAuth.TYPES.CLASS)
+        .catch(error => {
+            console.log(error);
+
+            const errorTimetable = {
+                "error": {
+                "message": "Oops! There was an error when retrieving your timetable."
+                }
+            }
+
+            return errorTimetable
+        })
+  
+    // get last hour
+    let lastHour;
+    for (hour in timetable) {
+        if (lastHour == null || timetable[hour].endTime > lastHour.endTime) {
+        lastHour = timetable[hour]
+        }
+    }
+
+    let schoolEnd = lastHour.endTime.toString()
+
+    let position = schoolEnd > 1000 ? 2 : 1;
+    schoolEnd = [schoolEnd.slice(0, position), ":", schoolEnd.slice(position)].join('');
+
+    return schoolEnd
+}
