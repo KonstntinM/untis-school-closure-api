@@ -32,10 +32,8 @@ async function isLoggedIn () {
 
 async function getSchoolEnd(classId) {
 
-    if (!isLoggedIn()) {
-        await login()
-    }
-
+    login()
+    
     return new Promise (async (resolve, reject) => {
         var timetable = await untis.getTimetableForToday(classId, WebUntis.WebUntisAnonymousAuth.TYPES.CLASS)
         .catch(error => {
