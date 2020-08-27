@@ -5,7 +5,8 @@ const config = require("config-yaml")(`${__dirname}/../config/config.yaml`)
 module.exports = {
     login,
     isLoggedIn,
-    getSchoolEnd
+    getSchoolEnd,
+    getClasses
 }
 
 const untis = new WebUntis.WebUntisAnonymousAuth(
@@ -73,4 +74,22 @@ async function formatSchoolEnd (schoolEnd) {
         
         resolve(schoolEnd)
     });
+}
+
+async function getClasses () {
+    return new Promise((resolve, reject) => {
+        untis.getClasses()
+            .then(result => {
+                resolve(result)
+            })
+            .catch(error=> {
+                console.log(error);
+                const errorClasses = {
+                    "error": {
+                    "message": "Oops! There was an error when retrieving the classes."
+                    }
+                }
+                reject(errorClasses)
+            })
+        })
 }

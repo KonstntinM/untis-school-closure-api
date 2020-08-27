@@ -13,18 +13,7 @@ app.get("/", function(req, res) {
 });
 
 app.get("/classes", function (req, res, next) {
-  untis.getClasses()
-    .then(result => {
-      res.json(result)
-    })
-    .catch(error=> {
-      const errorClasses = {
-        "error": {
-          "message": "Oops! There was an error when retrieving the classes."
-        }
-      }
-      res.status(500).json(errorClasses)
-    })
+ 
 })
 
 app.get("/schoolEnd/:classId", async function (req, res, next) {
