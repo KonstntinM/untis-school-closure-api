@@ -28,7 +28,13 @@ app.get("/classes", function (req, res, next) {
 })
 
 app.get("/schoolEnd/:classId", async function (req, res, next) {
-  
+  WebuntisService.getSchoolEnd(req.params.classId)
+    .then(schoolEnd => {
+      res.send(schoolEnd)
+    })
+    .catch(error => {
+      res.status(500).json(error)
+    })
 })
 
 const port = config.Server[0].PORT || 8000

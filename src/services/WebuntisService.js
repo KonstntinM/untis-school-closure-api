@@ -5,7 +5,7 @@ const config = require("config-yaml")(`${__dirname}/../config/config.yaml`)
 module.exports = {
     login,
     isLoggedIn,
-    
+    getSchoolEnd
 }
 
 const untis = new WebUntis.WebUntisAnonymousAuth(
@@ -30,14 +30,14 @@ async function isLoggedIn () {
     return await untis.validateSession();
 }
 
-async function getSchoolEnd() {
+async function getSchoolEnd(classId) {
 
     if (!isLoggedIn()) {
         await login()
     }
 
     return new Promise (async (resolve, reject) => {
-        var timetable = await untis.getTimetableForToday(req.params.classId, WebUntis.WebUntisAnonymousAuth.TYPES.CLASS)
+        var timetable = await untis.getTimetableForToday(classId, WebUntis.WebUntisAnonymousAuth.TYPES.CLASS)
         .catch(error => {
             console.log(error);
 
