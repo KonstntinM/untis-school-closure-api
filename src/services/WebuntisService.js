@@ -36,32 +36,34 @@ async function getSchoolEnd() {
         await login()
     }
 
-    var timetable = await untis.getTimetableForToday(req.params.classId, WebUntis.WebUntisAnonymousAuth.TYPES.CLASS)
+    return new Promise (async (resolve, reject) => {
+        var timetable = await untis.getTimetableForToday(req.params.classId, WebUntis.WebUntisAnonymousAuth.TYPES.CLASS)
         .catch(error => {
             console.log(error);
 
             const errorTimetable = {
                 "error": {
-                "message": "Oops! There was an error when retrieving your timetable."
+                    "message": "Oops! There was an error when retrieving your timetable."
                 }
             }
 
-            return errorTimetable
+            reject(errorTimetable)
         })
   
-    // get last hour
-    let lastHour;
-    for (hour in timetable) {
-        if (lastHour == null || timetable[hour].endTime > lastHour.endTime) {
-        lastHour = timetable[hour]
+        // get last hour
+        let lastHour;
+        for (hour in timetable) {
+            if (lastHour == null || timetable[hour].endTime > lastHour.endTime) {
+                lastHour = timetable[hour]
+            }
         }
-    }
 
-    let schoolEnd = lastHour.endTime.toString()
-    formatSchoolEnd(schoolEnd)
-        .then(formSchoolEnd => {
-            return formSchoolEnd
-        })
+        let schoolEnd = lastHour.endTime.toString()
+        formatSchoolEnd(schoolEnd)
+            .then(formSchoolEnd => {
+                resolve(formSchoolEnd)
+            })
+    })    
 }
 
 async function formatSchoolEnd (schoolEnd) {
