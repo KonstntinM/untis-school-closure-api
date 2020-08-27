@@ -13,7 +13,13 @@ app.get("/", function(req, res) {
 });
 
 app.get("/classes", function (req, res, next) {
- 
+  WebuntisService.getClasses()
+    .then(classes => {
+      res.json(classes)
+    })
+    .catch(error => {
+      res.status(404).json(error)
+    })
 })
 
 app.get("/schoolEnd/:classId", async function (req, res, next) {
