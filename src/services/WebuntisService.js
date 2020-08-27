@@ -4,22 +4,29 @@ const config = require("config-yaml")(`${__dirname}/../config/config.yaml`)
 
 module.exports = {
     login,
-    isLoggedIn,
+    sessionIsValid,
     getSchoolEnd,
     getClasses
 }
 
-var untis;
+var untis = new WebUntis.WebUntisAnonymousAuth(
+    config.Untis[1].SCHOOL,
+    config.Untis[0].SERVER
+)
 
-function login() {
-    untis = new WebUntis.WebUntisAnonymousAuth(
-        config.Untis[1].SCHOOL,
-        config.Untis[0].SERVER
-    )
+async function login() {
 
-    untis.login()
+    if (!sessionIsValid()) {
+        untis = new WebUntis.WebUntisAnonymousAuth(
+            config.Untis[1].SCHOOL,
+            config.Untis[0].SERVER
+        )
+    }
+
+    await untis.login()
         .then(res => {
             console.info("\x1b[32m" + "The server successfully opened a connection to the Untis server." + "\x1b[0m")
+            new Promise(resolve => resolve());
         })
         .catch(err => {
             console.error("Oops! There was an error when connecting to the Untis server. Please check your internet connection and login data.")
@@ -27,27 +34,27 @@ function login() {
         })
 }
 
-async function isLoggedIn () {
+async function sessionIsValid () {
     return await untis.validateSession();
 }
 
 async function getSchoolEnd(classId) {
 
-    login()
+    await login();
 
     return new Promise (async (resolve, reject) => {
         var timetable = await untis.getTimetableForToday(classId, WebUntis.WebUntisAnonymousAuth.TYPES.CLASS)
-        .catch(error => {
-            console.log(error);
+            .catch(error => {
+                console.log(error);
 
-            const errorTimetable = {
-                "error": {
-                    "message": "Oops! There was an error when retrieving your timetable."
+                const errorTimetable = {
+                    "error": {
+                        "message": "Oops! There was an error when retrieving your timetable."
+                    }
                 }
-            }
 
-            reject(errorTimetable)
-        })
+                reject(errorTimetable)
+            })
   
         // get last hour
         let lastHour;
@@ -62,6 +69,7 @@ async function getSchoolEnd(classId) {
             .then(formSchoolEnd => {
                 resolve(formSchoolEnd)
             })
+        
     })    
 }
 
