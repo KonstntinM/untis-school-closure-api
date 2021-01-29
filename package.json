@@ -29,6 +29,6 @@
     "config-yaml": "^1.1.6",
     "express": "^4.17.1",
     "nodemon": "^2.0.7",
-    "webuntis": "^1.13.2"
+    "webuntis": "^1.14.0"
   }
 }
